@@ -15,8 +15,8 @@ Example Usage
 
 ```cfm
 
-<!--- pass in the full client id --->
-<cfset gracenote = new lib.gracenote('XXXXXXX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+<!--- pass in the full client id. --->
+<cfset gracenote = new lib.Gracenote('XXXXXXX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
 
 <!---
 	Registering Client ID with the API
