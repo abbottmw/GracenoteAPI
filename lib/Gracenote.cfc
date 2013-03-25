@@ -141,7 +141,7 @@
 		switch(ARGUMENTS.command){
 			case 'ALBUM_FETCH' :
 			
-				body &= "<GN_ID>" & ARGUMENTS.gn_id & "</GN_ID>";
+				body &= "<GN_ID>" & ARGUMENTS.gnid & "</GN_ID>";
 				break;
 				
 			default:
