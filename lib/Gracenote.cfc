@@ -83,7 +83,7 @@
 	*/
 	public any function albumSearch(String artist = "",String album="",String track=""){
 		
-		var body = constructBody(ARGUMENTS.artist,ARGUMENTS.title,ARGUMENTS.track);
+		var body = constructBody(ARGUMENTS.artist,ARGUMENTS.album,ARGUMENTS.track);
 		var data = constructRequest(body);
 		return send(data);
 		
