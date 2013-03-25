@@ -3,7 +3,12 @@
 	property name="url"  type="string" required="true";
 	property name="clientId"  type="string" required="true";
 	property name="userId"  type="string" required="true";
-	  
+	
+	/*
+		Initial Constructor
+		Pass in the Client id (XXXXXXX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX).
+		If you have a User ID, you can pass it in here.
+	*/  
 	Gracenote function init(Required String clientId, String userId=""){
 		var local = {};
 		setClientId(ARGUMENTS.clientId);
@@ -17,6 +22,9 @@
 		return this;
 	}
 	
+	/*
+		Retrieves UserID from Gracenote WEB API.  Should be cached, called only once.
+	*/
 	public function register(){
 		var cmdString = '<QUERIES><QUERY CMD="REGISTER"><CLIENT>' & getClientId() & '</CLIENT></QUERY></QUERIES>';
 		var result = "";
@@ -45,7 +53,10 @@
 	}
 	
 	
-	private any function send(String cmd){
+	/*	
+		Sends HTTP Request to Gracenote WEB API
+	*/
+	private any function send(String command){
 		
 		
 		var http = new http();
@@ -55,7 +66,7 @@
 		http.setThrowOnError(true);
 		http.addParam(type="header",name="Content-Type",value="text/xml");
 		http.addParam(type='header',name="User-Agent",value="Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.0; Trident/5.0)");
-		http.addParam(type="body",value=Trim(ARGUMENTS.cmd));
+		http.addParam(type="body",value=Trim(ARGUMENTS.command));
 		
 		
 		result = http.send().getPrefix();
@@ -67,23 +78,31 @@
 		
 	}
 	
-	public any function albumSearch(String artist = "",String albumtitle="",String tracktitle=""){
+	/*
+		Search album by Artist, Album Title and/or Track Title. Uses ALBUM_SEARCH command
+	*/
+	public any function albumSearch(String artist = "",String album="",String track=""){
 		
-		var body = constructBody(ARGUMENTS.artist,ARGUMENTS.albumtitle,ARGUMENTS.tracktitle);
+		var body = constructBody(ARGUMENTS.artist,ARGUMENTS.title,ARGUMENTS.track);
 		var data = constructRequest(body);
 		return send(data);
 		
 	}
 	
-	public any function fetchByID(String gn_id){
+	/*
+		Fetch Metadata by passing in a Gracenote Identifier (GNID). Uses ALBUM_FETCH command
+	*/
+	public any function fetchByGNID(String gnid){
 		
 		
-		var body = constructBody("","","",ARGUMENTS.gn_id,"ALBUM_FETCH");
+		var body = constructBody("","","",ARGUMENTS.gnid,"ALBUM_FETCH");
 		var data = constructRequest(body,"ALBUM_FETCH");
 		return send(data);
 	}
 	
-	
+	/*
+		Search album by Table of Contents. Uses ALBUM_TOC command
+	*/
 	public any function albumTOC(String toc=""){
 		
 		var body = "<TOC><OFFSETS>" & ARGUMENTS.toc & "</OFFSETS></TOC>";
@@ -91,7 +110,10 @@
 		return send(data);
 		
 	}
-
+	
+	/*
+		Constructs main XML for a Gracenote Request.
+	*/
 	private string function constructRequest(String body="",String command="ALBUM_SEARCH"){
 		
 		var qString = "";
@@ -109,7 +131,10 @@
 		
 	}
 	
-	private string function constructBody(String artist="", String album = "", String track = "", String gn_id = "", String command=""){
+	/*
+		Constructs body XML for a Gracenote Request
+	*/
+	private string function constructBody(String artist="", String album = "", String track = "", String gnid = "", String command=""){
 		var body = "";
 		
 		
@@ -162,6 +187,9 @@
 	}
 	
 	
+	/*
+		Checks for Valid Response returned from Gracenote WEB API.
+	*/
 	private void function checkResponse(Required String response){
 		
 		var xmlSearch = [];

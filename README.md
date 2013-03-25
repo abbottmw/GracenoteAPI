@@ -40,7 +40,7 @@ Example Usage
 <hr/>
 
 <!---Fetch Album by using the Gracenote Identifier (GNID)--->
-<cfset search = gracenote.fetchByID("97474325-8C600076B380712C6D1C5DC5DC5674F1")>
+<cfset search = gracenote.fetchByGNID("97474325-8C600076B380712C6D1C5DC5DC5674F1")>
 <cfdump var="#search#">
 
 ```
