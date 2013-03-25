@@ -63,14 +63,14 @@
 		var result = {};
 		http.setUrl(getURL());
 		http.setMethod('POST');
-		http.setThrowOnError(true);
+		http.setThrowOnError(false);
 		http.addParam(type="header",name="Content-Type",value="text/xml");
 		http.addParam(type='header',name="User-Agent",value="Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.0; Trident/5.0)");
 		http.addParam(type="body",value=Trim(ARGUMENTS.command));
+		http.setTimeout(60);
 		
 		
 		result = http.send().getPrefix();
-		
 		checkResponse(result.fileContent);
 		
 		return isXML(result.fileContent)? XMLParse(result.fileContent) : result.fileContent;
@@ -190,12 +190,13 @@
 	/*
 		Checks for Valid Response returned from Gracenote WEB API.
 	*/
-	private void function checkResponse(Required String response){
+	private any function checkResponse(Required String response){
 		
 		var xmlSearch = [];
 		var status = 'OK';
 		var message = "";
 		
+
 		if(isXML( ARGUMENTS.response )){
 			
 			xmlSearch = xmlSearch(ARGUMENTS.response,'//MESSAGE');
@@ -211,6 +212,8 @@
 				status = xmlSearch[1].xmlAttributes['status'];	
 			}
 			
+		}else{
+			throw(message=ARGUMENTS.response);
 		}
 		
 		switch(status){
