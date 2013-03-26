@@ -190,7 +190,7 @@
 	/*
 		Checks for Valid Response returned from Gracenote WEB API.
 	*/
-	private any function checkResponse(Required String response){
+	private void function checkResponse(Required String response){
 		
 		var xmlSearch = [];
 		var status = 'OK';
