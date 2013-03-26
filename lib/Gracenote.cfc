@@ -173,7 +173,7 @@
 				
 			body &= "<OPTION>";
 			body &= "<PARAMETER>COVER_SIZE</PARAMETER>";
-			body &= "<VALUE>LARGE,XLARGE,SMALL,MEDIUM,THUMBNAIL</VALUE>";
+			body &= "<VALUE>MEDIUM,LARGE,SMALL,XLARGE,THUMBNAIL</VALUE>";
 			body &= "</OPTION>";
 			
 			break;
