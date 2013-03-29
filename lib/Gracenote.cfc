@@ -2,22 +2,34 @@
 {
 	property name="url"  type="string" required="true";
 	property name="clientId"  type="string" required="true";
+	property name="id" type="string" required="false" hint="Client ID (everything from the start to the '-' in the clientId)" ;
+	property name="tag" type="string" required="false" hint="Client Tag (everything after the '-' in the clientId)";
 	property name="userId"  type="string" required="true";
+	property name="returnType"  type="string" required="false" default="xml";
 	
 	/*
 		Initial Constructor
 		Pass in the Client id (XXXXXXX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX).
 		If you have a User ID, you can pass it in here.
 	*/  
-	Gracenote function init(Required String clientId, String userId=""){
+	Gracenote function init(Required String clientId, String userId, String returnType=""){
 		var local = {};
 		setClientId(ARGUMENTS.clientId);
+		setID(ListFirst( getClientId() ,'-'));
+		setTag(ListLast( getClientId() ,'-'));
+		
 		
 		if( !isNull( ARGUMENTS.userId ) && len( trim( ARGUMENTS.userId ) )){
 			setUserId( ARGUMENTS.userId );
 		}
 		
-		local.cID = ListFirst( getClientId() ,'-');
+		if(ListFindNoCase('xml,json',trim(ARGUMENTS.returnType))){
+			setReturnType(trim(ARGUMENTS.returnType));
+		}else{
+			setReturnType('xml');
+		}
+		
+		local.cID = getID();
 		setURL( 'https://c' & local.cID & '.web.cddbp.net/webapi/xml/1.0/' );
 		return this;
 	}
@@ -32,7 +44,7 @@
 		
 		if( !Len( getUserId() ) ){
 			
-			result = send(cmdString);
+			result = send(cmdString, 'xml');
 
 			if(isXML( result )){
 				user = xmlSearch(result,'//USER');
@@ -56,24 +68,46 @@
 	/*	
 		Sends HTTP Request to Gracenote WEB API
 	*/
-	private any function send(String command){
+	private any function send(String command, String returnType=getReturnType()){
 		
 		
 		var http = new http();
 		var result = {};
+		var xmlStruct = {};
+		
 		http.setUrl(getURL());
 		http.setMethod('POST');
 		http.setThrowOnError(false);
 		http.addParam(type="header",name="Content-Type",value="text/xml");
 		http.addParam(type='header',name="User-Agent",value="Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.0; Trident/5.0)");
 		http.addParam(type="body",value=Trim(ARGUMENTS.command));
-		http.setTimeout(60);
+		http.setTimeout(10);
 		
 		
 		result = http.send().getPrefix();
 		checkResponse(result.fileContent);
 		
-		return isXML(result.fileContent)? XMLParse(result.fileContent) : result.fileContent;
+		
+		switch(LCase(trim(ARGUMENTS.returnType))){
+			case 'json' :
+				
+				if( isXML(result.fileContent) ){
+					xmlStruct = xmlToStruct(XMLParse(result.fileContent));
+					return serializeJSON(xmlStruct);
+				}else{
+					return result.fileContent;
+				}
+				
+				break;
+
+			default:
+			
+				return isXML(result.fileContent)? XMLParse(result.fileContent) : result.fileContent;
+		}
+		
+	
+		
+		
 		
 		
 	}
@@ -234,4 +268,68 @@
 		
 	
 	}
+	
+	/*
+		xmlToStruct() function from Ray Camden
+		https://gist.github.com/cfjedimaster/4580449
+	*/
+	private Struct function xmlToStruct(x) {
+	    var s = {};
+	 
+	    if(xmlGetNodeType(x) == "DOCUMENT_NODE") {
+	        s[structKeyList(x)] = xmlToStruct(x[structKeyList(x)]);    
+	    }
+	 
+	    if(structKeyExists(x, "xmlAttributes") && !structIsEmpty(x.xmlAttributes)) { 
+	        s.attributes = {};
+	        for(var item in x.xmlAttributes) {
+	            s.attributes[item] = x.xmlAttributes[item];        
+	        }
+	    }
+	    
+	    if(structKeyExists(x, "xmlText") && len(trim(x.xmlText))) {
+	      s.value = x.xmlText;
+	    }
+	 
+	    if(structKeyExists(x, "xmlChildren") && arrayLen(x.xmlChildren)) {
+	        for(var i=1; i<=arrayLen(x.xmlChildren); i++) {
+	            if(structKeyExists(s, x.xmlchildren[i].xmlname)) { 
+	                if(!isArray(s[x.xmlChildren[i].xmlname])) {
+	                    var temp = s[x.xmlchildren[i].xmlname];
+	                    s[x.xmlchildren[i].xmlname] = [temp];
+	                }
+	                arrayAppend(s[x.xmlchildren[i].xmlname], xmlToStruct(x.xmlChildren[i]));                
+	             } else {
+	             	 //before we parse it, see if simple
+	             	 if(structKeyExists(x.xmlChildren[i], "xmlChildren") && arrayLen(x.xmlChildren[i].xmlChildren)) {
+	             	 		s[x.xmlChildren[i].xmlName] = xmlToStruct(x.xmlChildren[i]);
+	             	 } else if(structKeyExists(x.xmlChildren[i],"xmlAttributes") && !structIsEmpty(x.xmlChildren[i].xmlAttributes)) {
+	             	 	s[x.xmlChildren[i].xmlName] = xmlToStruct(x.xmlChildren[i]);
+	                } else {
+	                	s[x.xmlChildren[i].xmlName] = x.xmlChildren[i].xmlText;
+	                }
+	             }
+	        }
+	    }
+	    
+	    return s;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
