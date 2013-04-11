@@ -12,7 +12,7 @@
 		Pass in the Client id (XXXXXXX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX).
 		If you have a User ID, you can pass it in here.
 	*/  
-	Gracenote function init(Required String clientId, String userId, String returnType=""){
+	Public Gracenote function init(Required String clientId, String userId, String returnType=""){
 		var local = {};
 		setClientId(ARGUMENTS.clientId);
 		setID(ListFirst( getClientId() ,'-'));
@@ -37,7 +37,7 @@
 	/*
 		Retrieves UserID from Gracenote WEB API.  Should be cached, called only once.
 	*/
-	public function register(){
+	public string function register(){
 		var cmdString = '<QUERIES><QUERY CMD="REGISTER"><CLIENT>' & getClientId() & '</CLIENT></QUERY></QUERIES>';
 		var result = "";
 		var user = "";
@@ -65,16 +65,17 @@
 	}
 	
 	
-	/*	
+	/*
 		Sends HTTP Request to Gracenote WEB API
+		Needs output=false for http() call
 	*/
-	private any function send(String command, String returnType=getReturnType()){
+	private any function send(String command, String returnType=getReturnType()) output=false{
 		
 		
 		var http = new http();
 		var result = {};
 		var xmlStruct = {};
-		
+
 		http.setUrl(getURL());
 		http.setMethod('POST');
 		http.setThrowOnError(false);
@@ -95,14 +96,14 @@
 					xmlStruct = xmlToStruct(XMLParse(result.fileContent));
 					return serializeJSON(xmlStruct);
 				}else{
-					return result.fileContent;
+					return trim(result.fileContent);
 				}
 				
 				break;
 
 			default:
 			
-				return isXML(result.fileContent)? XMLParse(result.fileContent) : result.fileContent;
+				return isXML(trim(result.fileContent))? XMLParse(Trim(result.fileContent)) : result.fileContent;
 		}
 		
 	
@@ -270,43 +271,43 @@
 	}
 	
 	/*
-		xmlToStruct() function from Ray Camden
+		modified xmlToStruct() function from Ray Camden
 		https://gist.github.com/cfjedimaster/4580449
 	*/
 	private Struct function xmlToStruct(x) {
 	    var s = {};
 	 
 	    if(xmlGetNodeType(x) == "DOCUMENT_NODE") {
-	        s[structKeyList(x)] = xmlToStruct(x[structKeyList(x)]);    
+	        s[LCase(structKeyList(x))] = xmlToStruct(x[structKeyList(x)]);    
 	    }
 	 
 	    if(structKeyExists(x, "xmlAttributes") && !structIsEmpty(x.xmlAttributes)) { 
-	        s.attributes = {};
+	        s['attributes'] = {};
 	        for(var item in x.xmlAttributes) {
-	            s.attributes[item] = x.xmlAttributes[item];        
+	            s.attributes[Lcase(item)] = x.xmlAttributes[item];        
 	        }
 	    }
 	    
 	    if(structKeyExists(x, "xmlText") && len(trim(x.xmlText))) {
-	      s.value = x.xmlText;
+	      s['value'] = x.xmlText;
 	    }
 	 
 	    if(structKeyExists(x, "xmlChildren") && arrayLen(x.xmlChildren)) {
 	        for(var i=1; i<=arrayLen(x.xmlChildren); i++) {
-	            if(structKeyExists(s, x.xmlchildren[i].xmlname)) { 
-	                if(!isArray(s[x.xmlChildren[i].xmlname])) {
-	                    var temp = s[x.xmlchildren[i].xmlname];
-	                    s[x.xmlchildren[i].xmlname] = [temp];
+	            if(structKeyExists(s, Lcase(x.xmlchildren[i].xmlname))) { 
+	                if(!isArray(s[Lcase(x.xmlChildren[i].xmlname)])) {
+	                    var temp = s[Lcase(x.xmlchildren[i].xmlname)];
+	                    s[Lcase(x.xmlchildren[i].xmlname)] = [temp];
 	                }
-	                arrayAppend(s[x.xmlchildren[i].xmlname], xmlToStruct(x.xmlChildren[i]));                
+	                arrayAppend(s[LCase(x.xmlchildren[i].xmlname)], xmlToStruct(x.xmlChildren[i]));                
 	             } else {
 	             	 //before we parse it, see if simple
 	             	 if(structKeyExists(x.xmlChildren[i], "xmlChildren") && arrayLen(x.xmlChildren[i].xmlChildren)) {
-	             	 		s[x.xmlChildren[i].xmlName] = xmlToStruct(x.xmlChildren[i]);
+	             	 		s[LCase(x.xmlChildren[i].xmlName)] = xmlToStruct(x.xmlChildren[i]);
 	             	 } else if(structKeyExists(x.xmlChildren[i],"xmlAttributes") && !structIsEmpty(x.xmlChildren[i].xmlAttributes)) {
-	             	 	s[x.xmlChildren[i].xmlName] = xmlToStruct(x.xmlChildren[i]);
+	             	 	s[LCase(x.xmlChildren[i].xmlName)] = xmlToStruct(x.xmlChildren[i]);
 	                } else {
-	                	s[x.xmlChildren[i].xmlName] = x.xmlChildren[i].xmlText;
+	                	s[LCase(x.xmlChildren[i].xmlName)] = x.xmlChildren[i].xmlText;
 	                }
 	             }
 	        }

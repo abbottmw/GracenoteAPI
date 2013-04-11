@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RESPONSES>
+ <RESPONSE STATUS="OK">
+   <ALBUM>
+      <GN_ID>114191350-98E86953DD3565FFBDCF717F1C3C2794</GN_ID>
+      <ARTIST>Moby</ARTIST>
+      <ARTIST_ORIGIN ID="29889" ORD="1">North America</ARTIST_ORIGIN>
+      <ARTIST_ORIGIN ID="29908" ORD="2">United States</ARTIST_ORIGIN>
+      <ARTIST_ORIGIN ID="30199" ORD="3">New York</ARTIST_ORIGIN>
+      <ARTIST_ORIGIN ID="30634" ORD="4">New York City</ARTIST_ORIGIN>
+      <ARTIST_TYPE ID="29422" ORD="1">Male</ARTIST_TYPE>
+      <ARTIST_TYPE ID="29426" ORD="2">Male</ARTIST_TYPE>
+      <ARTIST_ERA ID="29484" ORD="1">1990's</ARTIST_ERA>
+      <TITLE>Play</TITLE>
+      <PKG_LANG>ENG</PKG_LANG>
+      <GENRE ID="35470" NUM="105216" ORD="1">Electronica</GENRE>
+      <GENRE ID="25364" NUM="61424" ORD="2">Electronica Mainstream</GENRE>
+      <GENRE ID="25665" NUM="62101" ORD="3">Pop Electronica</GENRE>
+      <MATCHED_TRACK_NUM>3</MATCHED_TRACK_NUM>
+      <TRACK_COUNT>17</TRACK_COUNT>
+      <TRACK>
+         <TRACK_NUM>3</TRACK_NUM>
+         <GN_ID>114191353-6427D29A1886723CAAF446423E4707E3</GN_ID>
+         <TITLE>Porcelin</TITLE>
+      </TRACK>
+      <URL SIZE="MEDIUM" TYPE="COVERART">https://web.content.cddbp.net/cgi-bin/content-thin?id=09A52178DC85EC3C&amp;client=7683072&amp;class=cover&amp;origin=front&amp;size=medium&amp;type=image/jpeg&amp;tag=02JaCWjBsxnG8m333iQ34Te0CkWE6cMgUIagHGwou2xVpcgYeSqimeyQ</URL>
+      <URL TYPE="ARTIST_BIOGRAPHY">https://web.content.cddbp.net/cgi-bin/content-thin?id=1274BA55D9C33B8E&amp;client=7683072&amp;class=biography&amp;type=text/plain&amp;tag=02tTMGJ9kXX6iwJd2SU-AOGmYjxYJNevP32yiZfbG5d4LS8QCzBxg-aQ</URL>
+      <URL TYPE="ARTIST_IMAGE">https://web.content.cddbp.net/cgi-bin/content-thin?id=C018FAD072939E99&amp;client=7683072&amp;class=image&amp;size=medium&amp;type=image/jpeg&amp;tag=02UiKRVpUaEwr59EVr4RTS-1nFF575om8s3KgdemEUdBghGnaOau004Q</URL>
+      <URL TYPE="REVIEW">https://web.content.cddbp.net/cgi-bin/content-thin?id=2BE8903E6FDA54AF&amp;client=7683072&amp;class=review&amp;type=text/plain&amp;tag=029PXZoKq5RZWNqXE26ma8XQIeD2bUIyjKh6vH-opr3-OevuyIPQ0bBw</URL>
+   </ALBUM>
+ </RESPONSE>
+</RESPONSES>
