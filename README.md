@@ -1,7 +1,9 @@
 ColdFusion wrapper for Gracenote API (WEB API)
 ===
 
-Simple wrapper for the <a href="http://www.gracenote.com">Gracenote</a> Music API  using the <a href="https://developer.gracenote.com/web-api">WEB API</a>
+Simple wrapper for the <a href="http://www.gracenote.com">Gracenote</a> Music API  using the <a href="https://developer.gracenote.com/web-api">WEB API</a>.
+
+It can be downloaded from Github, or you can <a href="http://gracenoteapi.riaforge.org/index.cfm?event=action.download">download</a> it through RiaForge.
 
 Getting Started
 ---
@@ -52,5 +54,3 @@ Example
 <cfdump var="#search#">
 
 ```
-
-

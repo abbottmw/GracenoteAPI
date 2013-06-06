@@ -90,25 +90,25 @@
                             "size":"MEDIUM",
                             "type":"COVERART"
                         },
-                        "value":"https:\/\/web.content.cddbp.net\/cgi-bin\/content-thin?id=09A52178DC85EC3C&client=7683072&class=cover&origin=front&size=medium&type=image\/jpeg&tag=02xR-O1NUSeJ-RDwdabBh6fvSx893Rr7id4MIbqNKxPN7dck7AwgTiuw"
+                        "value":"https:\/\/web.content.cddbp.net\/cgi-bin\/content-thin?id=09A52178DC85EC3C&client=XXXXXXX&class=cover&origin=front&size=medium&type=image\/jpeg&tag=02xR-O1NUSeJ-RDwdabBh6fvSx893Rr7id4MIbqNKxPN7dck7AwgTiuw"
                     },
                     {
                         "attributes":{
                             "type":"ARTIST_BIOGRAPHY"
                         },
-                        "value":"https:\/\/web.content.cddbp.net\/cgi-bin\/content-thin?id=1274BA55D9C33B8E&client=7683072&class=biography&type=text\/plain&tag=02jbMHVwWyCfIMTgbb-VtyioC1ZwWGPNMpoGaxaQlMGbb-JgifoTgk3g"
+                        "value":"https:\/\/web.content.cddbp.net\/cgi-bin\/content-thin?id=1274BA55D9C33B8E&client=XXXXXXX&class=biography&type=text\/plain&tag=02jbMHVwWyCfIMTgbb-VtyioC1ZwWGPNMpoGaxaQlMGbb-JgifoTgk3g"
                     },
                     {
                         "attributes":{
                             "type":"ARTIST_IMAGE"
                         },
-                        "value":"https:\/\/web.content.cddbp.net\/cgi-bin\/content-thin?id=C018FAD072939E99&client=7683072&class=image&size=medium&type=image\/jpeg&tag=028vKtYoaArPHaVkSv6dMlix8UVDZkAcboVv4A1AaLXM5IVCzgD5DSZA"
+                        "value":"https:\/\/web.content.cddbp.net\/cgi-bin\/content-thin?id=C018FAD072939E99&client=XXXXXXX&class=image&size=medium&type=image\/jpeg&tag=028vKtYoaArPHaVkSv6dMlix8UVDZkAcboVv4A1AaLXM5IVCzgD5DSZA"
                     },
                     {
                         "attributes":{
                             "type":"REVIEW"
                         },
-                        "value":"https:\/\/web.content.cddbp.net\/cgi-bin\/content-thin?id=2BE8903E6FDA54AF&client=7683072&class=review&type=text\/plain&tag=028-TtfKnyNzfG14qqOp.1qHBjgjzV3HsJImHBmh8MRNz02jUlcA8QmQ"
+                        "value":"https:\/\/web.content.cddbp.net\/cgi-bin\/content-thin?id=2BE8903E6FDA54AF&client=XXXXXXX&class=review&type=text\/plain&tag=028-TtfKnyNzfG14qqOp.1qHBjgjzV3HsJImHBmh8MRNz02jUlcA8QmQ"
                     }
                 ],
                 "artist_era":{
