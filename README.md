@@ -1,3 +1,6 @@
+This project is now defunct.  Gracenote has removed their developer APIs
+===
+
 ColdFusion wrapper for Gracenote API (WEB API)
 ===
 
